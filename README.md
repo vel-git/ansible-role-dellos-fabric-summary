@@ -1,6 +1,6 @@
 ansible-role-dellos-fabric-summary
 =====================================
-This role is used to get show system information to the whole network on Dell EMC Networking Operating Systems.
+This role is used to get show system information of all the switches in the fabric Dell EMC Networking Operating Systems.
 
 Installation
 ------------
@@ -29,6 +29,7 @@ Dependencies
 ------------
 
 *xmltodict*  library should be installed to get show command output in dict format from xml.
+To install the package use the *pip install xmltodict* command.
 
 Example playbook
 ----------------
@@ -79,13 +80,44 @@ The *ansible-role-dellos-fabric-summary* role has a simple playbook that only re
 
 **Samaple Output**
 
-    "device type": "S6010-ON",
-    "host": "10.11.180.23",
-    "hostname": "site2-spine2",
-    "inv_name": "site2-spine2",
-    "node-mac": "e4:f0:04:9b:f1:dc",
-    "service-tag": "543FXC2",
-    "software-version": "10.4.9999EX"
+    "results": [
+        {
+            "device type": "S6010-ON",
+            "host": "10.11.180.21",
+            "hostname": "host3",
+            "inv_name": "site1-spine1",
+            "node-mac": "e4:f0:04:9b:e5:dc",
+            "service-tag": "D33FXC2",
+            "software-version": "10.4.9999EX"
+        },
+        {
+            "device type": "S6010-ON",
+            "host": "10.11.180.22",
+            "hostname": "host22",
+            "inv_name": "site1-spine2",
+            "node-mac": "e4:f0:04:9b:eb:dc",
+            "service-tag": "J33FXC2",
+            "software-version": "10.4.9999EX"
+        },
+        {
+            "device type": "S6010-ON",
+            "host": "10.11.180.24",
+            "hostname": "site2-spine1",
+            "inv_name": "site2-spine1",
+            "node-mac": "e4:f0:04:9b:ee:dc",
+            "service-tag": "343FXC2",
+            "software-version": "10.4.9999EX"
+        },
+        {
+            "device type": "S6010-ON",
+            "host": "10.11.180.23",
+            "hostname": "site2-spine2",
+            "inv_name": "site2-spine2",
+            "node-mac": "e4:f0:04:9b:f1:dc",
+            "service-tag": "543FXC2",
+            "software-version": "10.4.9999EX"
+        }
+    ]
 
 (c) Copyright 2019 Dell Inc. or its subsidiaries. All Rights Reserved.
 

@@ -3,7 +3,7 @@
 galaxy_info:
   role_name: dellos-fabric-summary
   author: Dell EMC Networking Engineering
-  description: The dellos-network-view role faclitates to provide the system network information on Dell EMC Networking Operating Systems.
+  description: This role provides the system network information of all the switches in the fabric Dell EMC Networking Operating Systems.
   license:  Apache 2.0
   min_ansible_version: 2.2
 
