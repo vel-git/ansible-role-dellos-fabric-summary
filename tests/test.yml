@@ -1,0 +1,7 @@
+---
+- name: setup for dellos fabric summary 
+  hosts: localhost
+  gather_facts: False
+  connection: local
+  roles:
+    - ansible-role-dellos-fabric-summary
