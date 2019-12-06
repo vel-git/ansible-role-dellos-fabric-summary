@@ -5,7 +5,7 @@ This role is used to get show system information of all the switches in the fabr
 Installation
 ------------
 
-    ansible-galaxy install Dell-Networking.dellos-fabric-summary
+    ansible-galaxy install Dell-Networking.dellos_fabric_summary
 
 Connection variables
 --------------------
