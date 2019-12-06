@@ -5,14 +5,15 @@
     provider: "{{ hostvars[item].cli }}"
   with_items: "{{ groups['all'] }}"
   register: show_system
-- set_fact: 
-     output:  "{{ output|default([])+ [{'inv_name': item.item, 'host': item.invocation.module_args.provider.host, 'stdout_show_system': item.stdout}] }}"
+- set_fact:
+     output: "{{ output|default([])+ [{'inv_name': item.item, 'host': item.invocation.module_args.provider.host, 'stdout_show_system': item.stdout}] }}"
   loop: "{{ show_system.results }}"
-- debug: var=output
+- name: "debug the output of system summary DB"
+  debug: var=output
 - name: "show system network call to lib "
   show_system_network_summary:
     cli_responses: "{{ output}} "
     output_type: "{{ output_method if output_method is defined else 'json' }}"
   register: show_system_network_summary
-- debug: var=show_system_network_summary
-
+- name: "debug the output of system summary DB"
+  debug: var=show_system_network_summary
