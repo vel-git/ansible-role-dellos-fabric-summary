@@ -1,5 +1,5 @@
 ---
-- name: setup for dellos fabric summary 
+- name: setup for dellos fabric summary
   hosts: localhost
   gather_facts: False
   connection: local
