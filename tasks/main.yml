@@ -2,19 +2,31 @@
 - name: "Get Dell EMC OS10 Show system summary"
   dellos10_command:
     commands: ['show system | display-xml']
-    provider: "{{ hostvars[item].cli }}"
-  with_items: "{{ groups['all'] }}"
   register: show_system
 - name: "set fact to form database"
   set_fact:
-     output: "{{ output|default([])+ [{'inv_name': item.item, 'host': item.invocation.module_args.provider.host, 'stdout_show_system': item.stdout}] }}"
-  loop: "{{ show_system.results }}"
-- name: "debug the output of system summary DB"
-  debug: var=output
+    output:
+      "{{ output|default([])+ [{'inv_name': item, 'host': hostvars[item].cli.host,
+          'stdout_show_system': hostvars[item].show_system.stdout}]
+          if hostvars[item].show_system is defined and
+          (hostvars[item].show_system.failed == false) else output|default([]) }}"
+    fabric_failed_host:
+      "{{ fabric_failed_host|default([])+ [{'inv_name': item,
+          'host': hostvars[item].ansible_host}]
+          if (hostvars[item].show_system is not defined or
+          (hostvars[item].show_system.failed == true)) else fabric_failed_host|default([]) }}"
+  loop: "{{ ansible_play_hosts_all }}"
+  run_once: true
 - name: "show system network call to lib "
   show_system_network_summary:
     cli_responses: "{{ output }}"
     output_type: "{{ output_method if output_method is defined else 'json' }}"
   register: show_system_network_summary
+  run_once: true
 - name: "debug the output of system summary DB"
-  debug: var=show_system_network_summary
+  debug: var=show_system_network_summary.msg.results
+  run_once: true
+- name: "debug the output of unreachable host DB"
+  debug: var=fabric_failed_host
+  when: fabric_failed_host is defined and (fabric_failed_host|length > 0)
+  run_once: true

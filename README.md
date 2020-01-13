@@ -68,9 +68,9 @@ The *ansible-role-dellos-fabric-summary* role has a simple playbook that only re
 
     ---
     - name:  show system summary command
-      hosts: localhost
+      hosts: LeafAndSpineSwitch
       gather_facts: False
-      connection: local
+      connection: network_cli
       roles:
         - ansible-role-dellos-fabric-summary
 
